@@ -7,15 +7,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @Profile("!https")
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    public SecSecurityConfig() {
-        super();
-    }
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -31,37 +28,35 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        // @formatter:off
-        http
-        .csrf().disable()
-        .authorizeRequests()
-        .antMatchers("/admin/**").hasRole("ADMIN")
-        .antMatchers("/anonymous*").anonymous()
-        .antMatchers(HttpMethod.GET, "/index*", "/static/**", "/*.js", "/*.json", "/*.ico").permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .formLogin()
-        .loginPage("/index.html")
-        .loginProcessingUrl("/perform_login")
-        .defaultSuccessUrl("/homepage.html",true)
-        .failureUrl("/index.html?error=true")
-        .and()
-        .logout()
-        .logoutUrl("/perform_logout")
-        .deleteCookies("JSESSIONID");
-        // @formatter:on
-
 //        http
-//                .authorizeRequests()
-//                .antMatchers("/", "/home").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
+//        .csrf().disable()
+//        .authorizeRequests()
+//        .antMatchers("/admin/**").hasRole("ADMIN")
+//        .antMatchers("/anonymous*").anonymous()
+//        .antMatchers(HttpMethod.GET, "/index*", "/static/**", "/*.js", "/*.json", "/*.ico").permitAll()
+//        .anyRequest().authenticated()
+//        .and()
+//        .formLogin()
+//        .loginPage("/index.html")
+//        .loginProcessingUrl("/perform_login")
+//        .defaultSuccessUrl("/homepage.html",true)
+//        .failureUrl("/index.html?error=true")
+//        .and()
+//        .logout()
+//        .logoutUrl("/perform_logout")
+//        .deleteCookies("JSESSIONID");
+
+        http
+            .authorizeRequests()
+                .antMatchers("/", "/home").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
     }
 
 
