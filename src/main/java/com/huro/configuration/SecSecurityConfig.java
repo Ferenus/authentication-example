@@ -26,38 +26,38 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
     }
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
+//    @Override
+//    protected void configure(final HttpSecurity http) throws Exception {
+////        http
+////        .csrf().disable()
+////        .authorizeRequests()
+////        .antMatchers("/admin/**").hasRole("ADMIN")
+////        .antMatchers("/anonymous*").anonymous()
+////        .antMatchers(HttpMethod.GET, "/index*", "/static/**", "/*.js", "/*.json", "/*.ico").permitAll()
+////        .anyRequest().authenticated()
+////        .and()
+////        .formLogin()
+////        .loginPage("/index.html")
+////        .loginProcessingUrl("/perform_login")
+////        .defaultSuccessUrl("/homepage.html",true)
+////        .failureUrl("/index.html?error=true")
+////        .and()
+////        .logout()
+////        .logoutUrl("/perform_logout")
+////        .deleteCookies("JSESSIONID");
+//
 //        http
-//        .csrf().disable()
-//        .authorizeRequests()
-//        .antMatchers("/admin/**").hasRole("ADMIN")
-//        .antMatchers("/anonymous*").anonymous()
-//        .antMatchers(HttpMethod.GET, "/index*", "/static/**", "/*.js", "/*.json", "/*.ico").permitAll()
-//        .anyRequest().authenticated()
-//        .and()
-//        .formLogin()
-//        .loginPage("/index.html")
-//        .loginProcessingUrl("/perform_login")
-//        .defaultSuccessUrl("/homepage.html",true)
-//        .failureUrl("/index.html?error=true")
-//        .and()
-//        .logout()
-//        .logoutUrl("/perform_logout")
-//        .deleteCookies("JSESSIONID");
-
-        http
-            .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-                .permitAll();
-    }
+//            .authorizeRequests()
+//                .antMatchers("/", "/home").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//            .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//            .logout()
+//                .permitAll();
+//    }
 
 
 }
