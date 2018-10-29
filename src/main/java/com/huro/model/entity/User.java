@@ -1,4 +1,4 @@
-package com.huro.payroll;
+package com.huro.model.entity;
 
 import lombok.Data;
 
@@ -8,13 +8,13 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Employee {
+public class User {
 
 	private @Id @GeneratedValue Long id;
 	private String name;
 	private String role;
 
-	Employee(String name, String role) {
+	User(String name, String role) {
 		this.name = name;
 		this.role = role;
 	}
