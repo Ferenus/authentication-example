@@ -15,7 +15,7 @@ public class LoginController {
         this.repository = repository;
     }
 
-    @PostMapping("/users/register")
+    @PostMapping("/api/users/register")
     User newUser(@RequestBody User newEmployee) {
         return repository.save(newEmployee);
     }

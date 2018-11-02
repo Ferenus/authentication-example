@@ -9,7 +9,7 @@ export const userService = {
     update,
     delete: _delete
 };
-const API = 'http://localhost:4000';
+const API = 'http://localhost:8080/api';
 
 function login(username, password) {
     const requestOptions = {
