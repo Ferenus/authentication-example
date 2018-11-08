@@ -8,18 +8,24 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class User {
+public class HuroUser {
 
 	private @Id @GeneratedValue Long id;
 	private String firstName;
 	private String lastName;
 	private String username;
-	private String password;
+	private String passwordHash;
+	private String role;
 
-	public User(String firstName, String lastName, String username, String password) {
+	public HuroUser(){
+
+	}
+
+	public HuroUser(String firstName, String lastName, String username, String passwordHash, String role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
-		this.password = password;
+		this.passwordHash = passwordHash;
+		this.role = role;
 	}
 }
