@@ -9,7 +9,7 @@ export const userService = {
     update,
     delete: _delete
 };
-const API = 'http://localhost:8080/api';
+const API = '/api';
 
 function login(username, password) {
     const requestOptions = {
@@ -18,7 +18,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${API}/users/authenticate`, requestOptions)
+    return fetch(`${API}/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
