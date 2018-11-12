@@ -13,11 +13,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
-import static com.huro.security.SecurityConstants.SIGN_UP_URL;
 
-
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsServiceImpl userDetailsService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -27,21 +25,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
+	//TODO: permit by antMatcher and authenticate anyRequest
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.cors().and().csrf().disable().authorizeRequests()
-//				.antMatchers(HttpMethod.POST, SIGN_UP_URL, "/api/users/authenticate", "/**").permitAll()
-//				.anyRequest().authenticated()
-//				.and()
-//				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-//				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
-//				// this disables session creation on Spring Security
-//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests()
-				.antMatchers("/swagger*/**").authenticated()
+		http.cors().and().csrf().disable().authorizeRequests()
+				.antMatchers("/api*/**").authenticated()
 				.anyRequest().permitAll()
 				.and()
-				.csrf().disable();
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
+				// this disables session creation on Spring Security
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Override

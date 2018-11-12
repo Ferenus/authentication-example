@@ -19,7 +19,7 @@ public class LoginController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PostMapping("/api/users/register")
+    @PostMapping("/users/register")
     public void newUser(@RequestBody UserDto newEmployee) {
         newEmployee.setPassword(bCryptPasswordEncoder.encode(newEmployee.getPassword()));
         repository.save(new HuroUser(newEmployee.getFirstName(), newEmployee.getLastName(), newEmployee.getUsername(), newEmployee.getPassword(), "USER"));
