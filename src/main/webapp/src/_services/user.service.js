@@ -1,24 +1,22 @@
 import { authHeader } from '../_helpers';
+import base64 from "base-64";
+import utf8 from "utf8";
 
 export const userService = {
     login,
     logout,
     register,
-    getAll,
-    getById,
-    update,
-    delete: _delete
+    loadUserData
 };
-const API = '/api';
 
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        headers: { 'Content-Type': 'application/json' }
     };
+    let url =  '/api/authentication?username=' + username +  '&password=' + base64.encode(utf8.encode(password))
 
-    return fetch(`/login`, requestOptions)
+    return fetch(url, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
@@ -36,24 +34,6 @@ function logout() {
     localStorage.removeItem('user');
 }
 
-function getAll() {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${API}/users`, requestOptions).then(handleResponse);
-}
-
-function getById(id) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${API}/users/${id}`, requestOptions).then(handleResponse);
-}
-
 function register(user) {
     const requestOptions = {
         method: 'POST',
@@ -61,27 +41,17 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`/users/register`, requestOptions).then(handleResponse);
+    return fetch(`/api/users/register`, requestOptions).then(handleResponse);
 }
 
-function update(user) {
+function loadUserData(user) {
     const requestOptions = {
-        method: 'PUT',
+        method: 'GET',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
 
-    return fetch(`${API}/users/${user.id}`, requestOptions).then(handleResponse);
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
-    const requestOptions = {
-        method: 'DELETE',
-        headers: authHeader()
-    };
-
-    return fetch(`${API}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`/api/tasks`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

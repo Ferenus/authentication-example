@@ -1,27 +1,24 @@
 package com.huro.rest;
 
-import com.huro.model.entity.HuroUser;
-import com.huro.model.repository.UserRepository;
 import com.huro.rest.dto.UserDto;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.huro.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class LoginController {
 
-    private final UserRepository repository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
 
-    LoginController(UserRepository repository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.repository = repository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/users/register")
     public void newUser(@RequestBody UserDto newEmployee) {
-        newEmployee.setPassword(bCryptPasswordEncoder.encode(newEmployee.getPassword()));
-        repository.save(new HuroUser(newEmployee.getFirstName(), newEmployee.getLastName(), newEmployee.getUsername(), newEmployee.getPassword(), "USER"));
+        userService.create(newEmployee.getFirstName(), newEmployee.getLastName(), newEmployee.getUsername(), newEmployee.getPassword());
     }
 }

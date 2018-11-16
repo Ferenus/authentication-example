@@ -13,19 +13,21 @@ public class HuroUser {
 	private @Id @GeneratedValue Long id;
 	private String firstName;
 	private String lastName;
-	private String username;
-	private String passwordHash;
+	private String username; //unique
+	private String password;
 	private String role;
+	private String token; //nullable
 
 	public HuroUser(){
 
 	}
 
-	public HuroUser(String firstName, String lastName, String username, String passwordHash, String role) {
+	public HuroUser(String firstName, String lastName, String username, String password, String role, String token) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
-		this.passwordHash = passwordHash;
+		this.password = password;
 		this.role = role;
+		this.token = token;
 	}
 }
