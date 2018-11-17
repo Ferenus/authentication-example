@@ -19,6 +19,6 @@ public class LoginController {
 
     @PostMapping("/users/register")
     public void newUser(@RequestBody UserDto newEmployee) {
-        userService.create(newEmployee.getFirstName(), newEmployee.getLastName(), newEmployee.getUsername(), newEmployee.getPassword());
+        userService.create(newEmployee.getEmail(), newEmployee.getPassword());
     }
 }

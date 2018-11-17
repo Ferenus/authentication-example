@@ -25,8 +25,8 @@ public class UserService {
         this.dateGenerator = dateGenerator;
     }
 
-    public void create(String firstName, String lastName, String username, String password) {
-        userRepository.save(new HuroUser(firstName, lastName, username, bCryptPasswordEncoder.encode(password), "USER", null));
+    public void create(String email, String password) {
+        userRepository.save(new HuroUser(email, bCryptPasswordEncoder.encode(password), "USER", null));
     }
 
     public HuroUser isLoginValid(String username, String pass) {
@@ -34,7 +34,7 @@ public class UserService {
             return null;
         }
         String password = new String(Base64.decodeBase64(pass.getBytes()));
-        HuroUser u = userRepository.findByUsername(username);
+        HuroUser u = userRepository.findByEmail(username);
         if (u == null) {
             return null;
         }
@@ -44,13 +44,13 @@ public class UserService {
         return u;
     }
 
-    public HuroUser findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public HuroUser findByEmail(String username) {
+        return userRepository.findByEmail(username);
     }
 
     public HuroUser createUserToken(String username, String secret) {
         String token = jwtService.createToken(username, secret, dateGenerator.getExpirationDate());
-        HuroUser u = userRepository.findByUsername(username);
+        HuroUser u = userRepository.findByEmail(username);
         u.setToken(token);
         return userRepository.save(u);
     }
@@ -58,7 +58,7 @@ public class UserService {
     public HuroUser validateUser(String token, String secret) {
         String username = jwtService.getUsername(token, secret);
         if (username != null) {
-            HuroUser user = userRepository.findByUsername(username);
+            HuroUser user = userRepository.findByEmail(username);
             if (user != null && token.equals(user.getToken()) && jwtService.isValid(token, secret)) {
                 return user;
             }

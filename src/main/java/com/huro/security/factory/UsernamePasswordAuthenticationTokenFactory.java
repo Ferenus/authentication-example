@@ -13,7 +13,7 @@ public class UsernamePasswordAuthenticationTokenFactory {
 
     public UsernamePasswordAuthenticationToken create(HuroUser u) {
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(u.getRole());
-        return new UsernamePasswordAuthenticationToken(u.getUsername(), u.getPassword(), Collections.singletonList(simpleGrantedAuthority));
+        return new UsernamePasswordAuthenticationToken(u.getEmail(), u.getPassword(), Collections.singletonList(simpleGrantedAuthority));
     }
 
 }

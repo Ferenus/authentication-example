@@ -9,12 +9,12 @@ export const userService = {
     loadUserData
 };
 
-function login(username, password) {
+function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
     };
-    let url =  '/api/authentication?username=' + username +  '&password=' + base64.encode(utf8.encode(password))
+    let url =  '/api/authentication?username=' + email +  '&password=' + base64.encode(utf8.encode(password))
 
     return fetch(url, requestOptions)
         .then(handleResponse)

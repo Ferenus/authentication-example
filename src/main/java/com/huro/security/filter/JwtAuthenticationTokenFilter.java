@@ -48,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     logger.info("Checking authentication for token " + authToken);
                     HuroUser u = userService.validateUser(authToken, request.getRemoteAddr());
                     if(u != null) {
-                        logger.info("User " + u.getUsername() + " found.");
+                        logger.info("Email " + u.getEmail() + " found.");
                         Authentication authentication = usernamePasswordAuthenticationTokenFactory.create(u);
                         context.setAuthentication(authentication);
                     }

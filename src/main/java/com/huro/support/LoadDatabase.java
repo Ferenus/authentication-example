@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 class LoadDatabase {
 
 	public LoadDatabase(UserService userService) {
-		userService.create("Dan", "S","user", "user");
-		userService.create("Dan", "Str","tomcat", "tomcat");
+		userService.create("user@gmail.com", "user");
+		userService.create("tomcat@gmail.com", "tomcat");
 	}
 }

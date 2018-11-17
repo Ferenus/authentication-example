@@ -11,19 +11,15 @@ import javax.persistence.Id;
 public class UserDto {
 
 	private @Id @GeneratedValue Long id;
-	private String firstName;
-	private String lastName;
-	private String username;
+	private String email;
 	private String password;
 
 	public UserDto(){
 
 	}
 
-	public UserDto(String firstName, String lastName, String username, String password) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.username = username;
+	public UserDto(String email, String password) {
+		this.email = email;
 		this.password = password;
 	}
 }
