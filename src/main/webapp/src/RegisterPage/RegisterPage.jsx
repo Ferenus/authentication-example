@@ -13,6 +13,7 @@ class RegisterPage extends React.Component {
                 email: '',
                 password: ''
             },
+            submitted: false,
             emailErrors: [],
             passErrors: [],
         };
@@ -20,34 +21,38 @@ class RegisterPage extends React.Component {
 
     handleChange = (event) => {
         const {name, value} = event.target;
-        const {user} = this.state;
+        const {user, submitted} = this.state;
         this.setState({
             user: {
                 ...user,
                 [name]: value
             }
         });
+        if (submitted) {
+            if (name === "email") {
+                this.validateEmail(value);
+            } else if (name === "password") {
+                this.validatePassword(value);
+            }
+        }
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const emailErrors = this.validateEmail();
-        const passErrors = this.validatePassword();
-
         const {user} = this.state;
+        const emailErrors = this.validateEmail(user.email);
+        const passErrors = this.validatePassword(user.password);
+
         const {dispatch} = this.props;
         this.setState({
-            emailErrors: emailErrors,
-            passErrors: passErrors,
+            submitted: true,
         });
         if (emailErrors.length === 0 && passErrors.length === 0) {
             dispatch(userActions.register(user));
         }
     };
 
-    validateEmail() {
-        const {user} = this.state;
-        const email = user.email;
+    validateEmail(email) {
         const emailErrors = [];
         if (email) {
             if (!/\S+@\S+\.\S+/.test(email)) {
@@ -56,12 +61,13 @@ class RegisterPage extends React.Component {
         } else {
             emailErrors.push("Email is required.");
         }
+        this.setState({
+            emailErrors: emailErrors,
+        });
         return emailErrors;
     };
 
-    validatePassword() {
-        const {user} = this.state;
-        const password = user.password;
+    validatePassword(password) {
         const passErrors = [];
         if (password) {
             if (password.length < 8) {
@@ -76,6 +82,9 @@ class RegisterPage extends React.Component {
         } else {
             passErrors.push("Password is required.");
         }
+        this.setState({
+            passErrors: passErrors,
+        });
         return passErrors;
     };
 
