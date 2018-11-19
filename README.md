@@ -17,20 +17,20 @@ If a correct token is found, the Authentication object is added to the Spring Se
 The simple React app serves login page and registration page. On successful login it, the user is redirected to the main page.
 
 ## Setup
-Install node version 11.0.0
-Install npm version 6.4.1
-Install Java jdk 1.8
-Install Maven 3.x
-Add Java and Maven to the env variable PATH
+- Install node version 11.0.0
+- Install npm version 6.4.1
+- Install Java jdk 1.8
+- Install Maven 3.x
+- Add Java and Maven to the env variable PATH
 
 ## Install
 to run production build:
-mvn clean install
-java -jar target/huro-0.0.1-SNAPSHOT.jar
-URL access: http://localhost:8080
+- mvn clean install
+- java -jar target/huro-0.0.1-SNAPSHOT.jar
+- URL access: http://localhost:8080
 
 hot reload:
-mvn spring-boot:run or debug in IntelliJ
-cd src/main/webapp
-npm start
-URL access: http://localhost:3000
+- mvn spring-boot:run or debug in IntelliJ
+- cd src/main/webapp
+- npm start
+- URL access: http://localhost:3000
